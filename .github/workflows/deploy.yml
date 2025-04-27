@@ -37,8 +37,8 @@ jobs:
 
       - name: Build & Push Docker Images
         run: |
-          chmod +x ./scripts/build_push_images.sh
-          ./scripts/build_push_images.sh
+          chmod +x ./scripts/build_push_image.sh
+          ./scripts/build_push_image.sh
           
       - name: Set image URL for Terraform
         run: echo "WEB_IMAGE=${{secrets.AWS_ACCOUNT_ID}}.dkr.ecr.${AWS_REGION}.amazonaws.com/${ECR_REPO}:latest" >> $GITHUB_ENV
