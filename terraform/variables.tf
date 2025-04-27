@@ -8,7 +8,7 @@ variable "vpc_cidr" {
 }
 
 variable "cluster" {
-  default = glps-eks-cluster
+  default = "glps-eks-cluster"
   type    = string
 }
 
