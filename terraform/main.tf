@@ -88,7 +88,7 @@ resource "aws_route_table" "main" {
       gateway_id = aws_nat_gateway.nat.id
     }
     tags ={
-      Name = "${vr.cluster}/private_rt"
+      Name = "${var.cluster}/private_rt"
     }
 }
 
@@ -209,7 +209,7 @@ resource "aws_security_group" "eks_cluster_sg" {
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
-    cidr_blocks = ["0.0.0/0"]
+    cidr_blocks = ["0.0.0.0/0"]
   }
 
   tags = {
