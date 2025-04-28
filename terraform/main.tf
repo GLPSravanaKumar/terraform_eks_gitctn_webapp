@@ -163,10 +163,6 @@ resource "aws_eks_cluster" "eks_cluster" {
   name = var.cluster
   role_arn = aws_iam_role.eks_cluster_role.arn
 
-  access_config {
-    authentication_mode = "API"
-  }
-
   version  = "1.31"
 
   vpc_config {
@@ -183,7 +179,7 @@ resource "aws_eks_cluster" "eks_cluster" {
   # after EKS Cluster handling. Otherwise, EKS will not be able to
   # properly delete EKS managed EC2 infrastructure such as Security Groups.
   depends_on = [
-    aws_iam_role_policy_attachment.EKSClusterPolicy,
+    aws_iam_role_policy_attachment.EKSClusterPolicy
   ]
   tags = {
     Name = "${var.cluster}/eks-cluster"
