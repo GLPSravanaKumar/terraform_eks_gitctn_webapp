@@ -21,7 +21,7 @@ variable "private_subnet_cidrs" {
 }
 
 variable "web_image" {
-  description = "Docker image for the static web app1"
+  description = "Docker image for the static web app"
   type = string
 }
 
