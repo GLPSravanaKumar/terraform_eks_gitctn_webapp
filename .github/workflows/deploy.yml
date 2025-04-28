@@ -47,7 +47,7 @@ jobs:
         working-directory: ./terraform
         run: |
           terraform init \
-            -backend-config="bucket=glps-dev-backend-bucket" \
+            -backend-config="bucket=glps-test-backend-bucket " \
             -backend-config="region=ap-south-1" \
             -backend-config="key=eks/terraform.tfstate"
 
