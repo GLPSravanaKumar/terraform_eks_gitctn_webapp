@@ -364,10 +364,11 @@ resource "kubernetes_service" "webapp" {
       port        = 80
       target_port = 80
     }
-    type = "NodePort"
+    type = "LoadBalancer"
   }
 }
 
+/*
 resource "kubernetes_ingress_v1" "webapp1" {
   metadata {
     namespace = kubernetes_namespace.ns.metadata[0].name
@@ -399,3 +400,4 @@ resource "kubernetes_ingress_v1" "webapp1" {
     }
   }
 }
+*/
