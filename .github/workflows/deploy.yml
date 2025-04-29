@@ -10,7 +10,7 @@ on:
 
 env:
   AWS_REGION: ap-south-1
-  ECR_REPO: glps-demo-ecr
+  ECR_REPO: glps-webapp-repo
   CLUSTER_NAME: glps-eks-cluster
 
 jobs:
