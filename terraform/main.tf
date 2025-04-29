@@ -179,7 +179,8 @@ resource "aws_eks_cluster" "eks_cluster" {
   # after EKS Cluster handling. Otherwise, EKS will not be able to
   # properly delete EKS managed EC2 infrastructure such as Security Groups.
   depends_on = [
-    aws_iam_role_policy_attachment.EKSClusterPolicy
+    aws_iam_role_policy_attachment.EKSClusterPolicy,
+    aws_security_group.eks_cluster_sg
   ]
   tags = {
     Name = "${var.cluster}/eks-cluster"
@@ -363,6 +364,38 @@ resource "kubernetes_service" "webapp" {
       port        = 80
       target_port = 80
     }
-    type = "LoadBalancer"
+    type = "NodePort"
+  }
+}
+
+resource "kubernetes_ingress_v1" "webapp1" {
+  metadata {
+    namespace = kubernetes_namespace.ns.metadata[0].name
+    name = "glps-webapp-ingress"
+    annotations = {
+      "kubernetes.io/ingress.class"                     = "alb"
+      "alb.ingress.kubernetes.io/scheme"                = "internet-facing"
+      "alb.ingress.kubernetes.io/target-type"           = "ip"
+      "alb.ingress.kubernetes.io/group.name"            = "shared-lb"
+    }
+  }
+
+  spec {
+    rule {
+      http {
+        path {
+          path     = "/amazon"
+          path_type = "Prefix"
+          backend {
+            service {
+              name = kubernetes_service.webapp.metadata[0].name
+              port {
+                number = 80
+              }
+            }
+          }
+        }
+      }
+    }
   }
 }
