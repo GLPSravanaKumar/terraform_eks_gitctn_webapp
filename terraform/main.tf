@@ -185,7 +185,6 @@ resource "aws_eks_cluster" "eks_cluster" {
   tags = {
     Name = "${var.cluster}/eks-cluster"
   }
-
 }
 
 resource "aws_security_group" "eks_cluster_sg" {
